@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TalentSift — AI Resume Screening</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">TS</div>
+      <div>
+        <h1>TalentSift</h1>
+        <p class="tagline">AI-powered resume screening for recruiters</p>
+      </div>
+    </div>
+    <div class="badge">NLP · TF-IDF · Cosine Similarity</div>
+  </header>
+
+  <main class="container">
+    <section class="card upload-card">
+      <h2>1. Paste the job description</h2>
+      <p class="hint">Drop in the JD verbatim — the more detail, the better the match.</p>
+      <textarea id="jobDescription" placeholder="e.g. We are looking for a Senior Python Engineer with experience in Flask, machine learning, NLP, and AWS..."></textarea>
+
+      <h2>2. Upload candidate resumes</h2>
+      <p class="hint">PDF or DOCX. You can drop multiple files at once.</p>
+      <label for="resumeInput" class="dropzone" id="dropzone">
+        <div class="dz-icon">⇪</div>
+        <div class="dz-text">
+          <strong>Click to browse</strong> or drag & drop resumes here
+          <span>PDF, DOCX · up to 32 MB combined</span>
+        </div>
+        <input id="resumeInput" type="file" multiple accept=".pdf,.docx" hidden />
+      </label>
+
+      <ul id="fileList" class="file-list"></ul>
+
+      <div class="actions">
+        <button id="rankBtn" class="primary" disabled>Rank candidates</button>
+        <button id="resetBtn" class="ghost" type="button">Reset</button>
+      </div>
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section id="results" class="results hidden">
+      <div class="results-header">
+        <div>
+          <h2>Ranked candidates</h2>
+          <p id="resultsMeta" class="hint"></p>
+        </div>
+        <div id="jdSkills" class="chips"></div>
+      </div>
+      <div id="candidateList"></div>
+    </section>
+  </main>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>Built with Python · Flask · Scikit-learn</span>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
